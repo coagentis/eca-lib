@@ -1,7 +1,8 @@
-Título: ECA: Uma Arquitetura para Raciocínio Contextual Dinâmico em Grandes Modelos de Linguagem
-Autores: Roberto Timóteo Viera da Silva
-Data: 8 de Julho de 2025
-Versão: 1.0
+### **ECA: Uma Arquitetura para Raciocínio Contextual Dinâmico em Grandes Modelos de Linguagem**
+
+**Versão:** 1.0  
+**Autores:** Roberto Timóteo Viera da Silva  
+**Data:** 8 de Julho de 2025
 
 ## Abstract (Resumo)
 Grandes Modelos de Linguagem (LLMs) demonstraram capacidades extraordinárias, mas operam sob uma limitação fundamental: são, por natureza, stateless (sem estado), resultando em uma amnésia contextual entre interações. Esta limitação impede a construção de agentes de IA verdadeiramente autônomos, capazes de manter conversas fluidas, alternar entre diferentes domínios de conhecimento e simular um raciocínio contínuo. Este artigo introduz a Engenharia de Contexto Aumentada (ECA), uma arquitetura de orquestração projetada para superar essas limitações. A ECA propõe um sistema dinâmico, orientado por metadados, que gera o contexto para o LLM em tempo real. A arquitetura é composta por uma camada persistente de conhecimento (identidades, memórias e regras de negócio), um orquestrador cognitivo que monta uma "Área de Trabalho Cognitiva" com múltiplos domínios ativos, e uma camada de interface que traduz este estado complexo em um prompt otimizado e nativo para o LLM. Apresentamos um estudo de caso de um agente de backoffice multi-domínio para demonstrar a capacidade da ECA em gerenciar a troca de contexto de forma fluida e manter a coerência, representando um passo significativo em direção a assistentes de IA mais robustos e contextualmente conscientes.

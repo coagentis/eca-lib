@@ -1,4 +1,4 @@
-### **Título: ECA: Arquitetura de Engenharia de Contexto Aumentada**
+### **ECA: Arquitetura de Engenharia de Contexto Aumentada**
 
 **Versão:** 1.0  
 **Autores:** Roberto Timóteo Viera da Silva  
@@ -149,7 +149,7 @@ Essa separação permite que os desenvolvedores aproveitem a poderosa lógica de
 
 ### 4.1. Exemplo de Uso (Quick Start)
 
-Abaixo, um exemplo prático de como um desenvolvedor usaria a `eca-lib` para instanciar o orquestrador e processar uma entrada.
+Abaixo, um exemplo prático de como utilizar a `eca-lib` para instanciar o orquestrador e processar uma entrada.
 
 ```python
 # 1. Importar as classes necessárias

@@ -63,3 +63,17 @@ class CognitiveWorkspace:
     # Um dicionário que armazena o estado de todos os domínios ativos ou pausados.
     # A chave é o domain_id.
     active_domains: Dict[str, DomainState] = field(default_factory=dict)
+
+    def __post_init__(self):
+        """
+        Este método é chamado automaticamente após a inicialização do objeto.
+        Ele verifica se os domínios ativos são dicionários (vindos de um JSON)
+        e os converte (hidrata) de volta para objetos DomainState.
+        """
+        # Verifica se active_domains não está vazio e se o primeiro item é um dicionário
+        if self.active_domains and isinstance(next(iter(self.active_domains.values())), dict):
+            # Recria o dicionário, transformando cada valor de dicionário em um objeto DomainState
+            self.active_domains = {
+                domain_id: DomainState(**domain_data)
+                for domain_id, domain_data in self.active_domains.items()
+            }

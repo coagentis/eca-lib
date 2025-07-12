@@ -1,0 +1,84 @@
+{
+  "ana_paula": {
+    "user_id": "ana_paula",
+    "current_focus": "product_catalog",
+    "active_domains": {
+      "fiscal": {
+        "status": "paused",
+        "session_summary": "",
+        "active_task": "Analisando a solicitação 'Preciso analisar a nfe 78910....'",
+        "relevant_memories": [
+          {
+            "id": "mem-uuid-123",
+            "domain_id": "fiscal",
+            "text_content": "O fornecedor 'Tecno Peças Ltda' frequentemente apresenta erros no cálculo do IPI na última semana do mês.",
+            "embedding": [
+              0.12,
+              -0.45,
+              0.88
+            ],
+            "metadata": {}
+          },
+          {
+            "id": "mem-uuid-456",
+            "domain_id": "fiscal",
+            "text_content": "Toda validação de ICMS-ST deve cruzar a informação com o Protocolo ICMS vigente entre os estados da operação.",
+            "embedding": [
+              0.34,
+              0.56,
+              -0.11
+            ],
+            "metadata": {}
+          }
+        ],
+        "task_data": {
+          "numero": "78910",
+          "data_emissao": "2025-07-08T10:00:00-03:00",
+          "fornecedor_nome": "Tecno Peças Ltda",
+          "fornecedor_cnpj": "12.345.678/0001-99",
+          "valor_total": 4500.0,
+          "origem": "MG",
+          "destino": "SP",
+          "produtos": [
+            {
+              "sku": "ROL-AX-3000",
+              "nome": "Rolamento Axial 3000",
+              "ncm": "8482.10.10",
+              "quantidade": 100,
+              "valor_unitario": 45.0
+            }
+          ],
+          "impostos": {
+            "base_calculo_icms": 4500.0,
+            "valor_icms": 810.0,
+            "base_calculo_ipi": 4500.0,
+            "valor_ipi": 450.0,
+            "icms_st": {
+              "base_calculo": 4800.0,
+              "valor": 432.0
+            }
+          }
+        }
+      },
+      "product_catalog": {
+        "status": "active",
+        "session_summary": "",
+        "active_task": "Analisando a solicitação 'Ok, obrigado. Agora preciso cadastrar um novo prod...'",
+        "relevant_memories": [
+          {
+            "id": "mem-uuid-789",
+            "domain_id": "product_catalog",
+            "text_content": "O último código de notebook cadastrado foi 'NB-1098'. Novos códigos devem seguir a sequência.",
+            "embedding": [
+              -0.78,
+              0.02,
+              0.49
+            ],
+            "metadata": {}
+          }
+        ],
+        "task_data": null
+      }
+    }
+  }
+}

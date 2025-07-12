@@ -1,0 +1,28 @@
+{
+  "numero": "78910",
+  "data_emissao": "2025-07-08T10:00:00-03:00",
+  "fornecedor_nome": "Tecno Peças Ltda",
+  "fornecedor_cnpj": "12.345.678/0001-99",
+  "valor_total": 4500.00,
+  "origem": "MG",
+  "destino": "SP",
+  "produtos": [
+    {
+      "sku": "ROL-AX-3000",
+      "nome": "Rolamento Axial 3000",
+      "ncm": "8482.10.10",
+      "quantidade": 100,
+      "valor_unitario": 45.00
+    }
+  ],
+  "impostos": {
+    "base_calculo_icms": 4500.00,
+    "valor_icms": 810.00,
+    "base_calculo_ipi": 4500.00,
+    "valor_ipi": 450.00,
+    "icms_st": {
+      "base_calculo": 4800.00,
+      "valor": 432.00
+    }
+  }
+}

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import json
+from dataclasses import asdict 
 from typing import List, Optional, Dict
 
 from eca.models import Persona, PersonaConfig, Memory, CognitiveWorkspace
@@ -72,6 +73,6 @@ class JSONSessionProvider(SessionProvider):
 
     def save_workspace(self, workspace: CognitiveWorkspace):
         # Converte o objeto de volta para um dicionário para salvar no JSON.
-        self.sessions[workspace.user_id] = workspace.__dict__
+        self.sessions[workspace.user_id] = asdict(workspace)
         with open(self.file_path, 'w', encoding='utf-8') as f:
             json.dump(self.sessions, f, indent=2, ensure_ascii=False)
