@@ -45,12 +45,23 @@ class ECAOrchestrator:
         
         active_domain_state = workspace.active_domains[detected_domain]
         
-        # Etapa 3: Busca memórias e dados externos relevantes.
-        active_domain_state.relevant_memories = self.memory_provider.fetch_relevant_memories(
+        # Etapa 3: Busca memórias, classifica a tarefa e busca dados externos.
+        active_domain_state.active_task = f"Analisando a solicitação '{user_input[:50]}...' para o domínio '{detected_domain}'."
+
+        # Busca as memórias semânticas (fatos e regras)
+        active_domain_state.semantic_memories = self.memory_provider.fetch_semantic_memories(
             user_input=user_input,
             domain_id=detected_domain
         )
-        active_domain_state.active_task = f"Analisando a solicitação '{user_input[:50]}...'"
+
+        # Busca as memórias episódicas (histórico da conversa)
+        active_domain_state.episodic_memories = self.memory_provider.fetch_episodic_memories(
+            user_id=user_id,
+            domain_id=detected_domain,
+            last_n=5
+        )
+
+        # Carrega dados externos, se aplicável
         active_domain_state.task_data = self._load_task_data(user_input)
 
         # Etapa 4: Salva o novo estado da sessão.
@@ -74,7 +85,6 @@ class ECAOrchestrator:
         
         return final_prompt
 
-    # --- Métodos Internos (Helpers) ---
     def _flatten_context_to_string(self, workspace: CognitiveWorkspace, user_input: str) -> str:
         """
         Pega o objeto de workspace e o "achata" em uma string de contexto otimizada.
@@ -84,16 +94,13 @@ class ECAOrchestrator:
         active_domain_state = workspace.active_domains.get(active_domain_id)
         persona = self.persona_provider.get_persona_by_id(active_domain_id)
         
-        # Se a persona não for encontrada por algum motivo, retorna um erro claro.
         if not persona:
             return f"[ERROR: Persona com id '{active_domain_id}' não encontrada.]"
 
-        # --- A LÓGICA REATORADA, COMO VOCÊ SUGERIU ---
-        # 1. Pegamos o objeto de configuração para facilitar o acesso.
         config = persona.config
         user_details = workspace.user_id
 
-        # 2. Montamos os tokens usando o 'config' para as informações da persona.
+        # Monta os tokens
         context_str += f"[TIMESTAMP:{datetime.now().isoformat()}]\n"
         context_str += f"[IDENTITY:{persona.name}|{persona.id.upper()}]\n"
         context_str += f"[OBJECTIVE:{config.objective}]\n"
@@ -101,22 +108,31 @@ class ECAOrchestrator:
         if config.golden_rules:
             rules_str = "\\n".join([f"- {rule}" for rule in config.golden_rules])
             context_str += f"[GOLDEN_RULES:\\n{rules_str}]\n"
-        # ---------------------------------------------
         
         context_str += f"[USER:{user_details}]\n"
-        context_str += f"[CURRENT_SESSION:{active_domain_state.session_summary or 'Initiating new task.'}]\n"
-        context_str += f"[ACTIVE_TASK:{active_domain_state.active_task}]\n"
+        
+        # Memória episódica
+        if active_domain_state and active_domain_state.episodic_memories:
+            history_str = "\\n".join(
+                [f"User: {mem.user_input}\\nAssistant: {mem.assistant_output}" for mem in active_domain_state.episodic_memories]
+            )
+            context_str += f"[RECENT_HISTORY:\\n{history_str}]\\n"
+        
+        if active_domain_state:
+            context_str += f"[CURRENT_SESSION:{active_domain_state.session_summary or 'Initiating new task.'}]\n"
+            context_str += f"[ACTIVE_TASK:{active_domain_state.active_task}]\n"
 
-        for i, mem in enumerate(active_domain_state.relevant_memories):
-            context_str += f"[RELEVANT_MEMORY_{i+1}:{mem.text_content}]\n"
+            # Memória semantic
+            for i, mem in enumerate(active_domain_state.semantic_memories):
+                context_str += f"[RELEVANT_MEMORY_{i+1}:{mem.text_content}]\n"
 
-        if active_domain_state.task_data:
-            handler = self.data_handlers.get(active_domain_id)
-            if handler:
-                task_data_summary = handler(active_domain_state.task_data)
-            else:
-                task_data_summary = active_domain_state.task_data
-            context_str += f"[INPUT_DATA: {json.dumps(task_data_summary, ensure_ascii=False)}]\n"
+            if active_domain_state.task_data:
+                handler = self.data_handlers.get(active_domain_id)
+                if handler:
+                    task_data_summary = handler(active_domain_state.task_data)
+                else:
+                    task_data_summary = active_domain_state.task_data
+                context_str += f"[INPUT_DATA: {json.dumps(task_data_summary, ensure_ascii=False)}]\n"
 
         context_str += f"[USER_INPUT: \"{user_input}\"]"
         

@@ -1,0 +1,65 @@
+[
+  {
+    "user_id": "ana_paula",
+    "domain_id": "fiscal",
+    "user_input": "Qual a alíquota de IPI para o NCM 8471.60.52?",
+    "assistant_output": "A alíquota de IPI para teclados (NCM 8471.60.52) é de 15%, de acordo com a tabela TIPI.",
+    "timestamp": "2025-07-11T10:30:00-03:00"
+  },
+  {
+    "user_id": "ana_paula",
+    "domain_id": "product_catalog",
+    "user_input": "Preciso cadastrar um novo mouse da Dell.",
+    "assistant_output": "Entendido, Ana. Para cadastrar o mouse da Dell, por favor, me informe o Part Number e o fornecedor principal.",
+    "timestamp": "2025-07-11T14:15:00-03:00"
+  },
+  {
+    "user_id": "ana_paula",
+    "domain_id": "fiscal",
+    "user_input": "Onde encontro os protocolos de ICMS-ST?",
+    "assistant_output": "Você pode encontrar todos os protocolos e convênios atualizados diretamente no site do CONFAZ.",
+    "timestamp": "2025-07-12T09:05:00-03:00"
+  },
+  {
+    "user_id": "ana_paula",
+    "domain_id": "fiscal",
+    "user_input": "Preciso analisar a nfe 78910.",
+    "assistant_output": "Entendido, Ana. Para analisar a NF-e 78910, por favor, anexe o arquivo ou me forneça a chave de acesso.",
+    "timestamp": "2025-07-12T20:27:47.118819"
+  },
+  {
+    "user_id": "ana_paula",
+    "domain_id": "product_catalog",
+    "user_input": "Ok, obrigado. Agora preciso cadastrar um novo produto.",
+    "assistant_output": "Claro. Para iniciar o cadastro, por favor, me informe a descrição completa e a marca do novo produto.",
+    "timestamp": "2025-07-12T20:27:58.611825"
+  },
+  {
+    "user_id": "ana_paula",
+    "domain_id": "fiscal",
+    "user_input": "qual o ultimo status da analize de minha nfe 78910.",
+    "assistant_output": "Entendido, Ana. Para analisar a NF-e 78910, por favor, anexe o arquivo ou me forneça a chave de acesso.",
+    "timestamp": "2025-07-12T21:01:54.058808"
+  },
+  {
+    "user_id": "ana_paula",
+    "domain_id": "product_catalog",
+    "user_input": "Ok, obrigado. Agora preciso cadastrar um novo produto.",
+    "assistant_output": "Claro. Para iniciar o cadastro, por favor, me informe a descrição completa e a marca do novo produto.",
+    "timestamp": "2025-07-12T21:01:54.059333"
+  },
+  {
+    "user_id": "ana_paula",
+    "domain_id": "fiscal",
+    "user_input": "qual o ultimo status da analize de minha nfe 78910.",
+    "assistant_output": "Entendido, Ana. Para analisar a NF-e 78910, por favor, anexe o arquivo ou me forneça a chave de acesso.",
+    "timestamp": "2025-07-12T21:02:09.803208"
+  },
+  {
+    "user_id": "ana_paula",
+    "domain_id": "product_catalog",
+    "user_input": "Ok, obrigado. Agora preciso cadastrar um novo produto.",
+    "assistant_output": "Claro. Para iniciar o cadastro, por favor, me informe a descrição completa e a marca do novo produto.",
+    "timestamp": "2025-07-12T21:02:09.806595"
+  }
+]
