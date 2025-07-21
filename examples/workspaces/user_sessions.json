@@ -1,0 +1,166 @@
+{
+  "ana_paula": {
+    "user_id": "ana_paula",
+    "current_focus": "product_catalog",
+    "active_domains": {
+      "fiscal": {
+        "status": "paused",
+        "session_summary": "",
+        "active_task": "Analisando a solicitação 'qual o ultimo status da analize de minha nfe 78910...' para o domínio 'fiscal'.",
+        "semantic_memories": [
+          {
+            "id": "mem-uuid-123",
+            "domain_id": "fiscal",
+            "type": "supplier_pattern",
+            "text_content": "O fornecedor 'Tecno Peças Ltda' frequentemente apresenta erros no cálculo do IPI na última semana do mês.",
+            "embedding": [
+              0.12,
+              -0.45,
+              0.88
+            ],
+            "metadata": {
+              "supplier_cnpj": "12.345.678/0001-99"
+            }
+          },
+          {
+            "id": "mem-uuid-456",
+            "domain_id": "fiscal",
+            "type": "business_rule",
+            "text_content": "Toda validação de ICMS-ST deve cruzar a informação com o Protocolo ICMS vigente entre os estados da operação.",
+            "embedding": [
+              0.34,
+              0.56,
+              -0.11
+            ],
+            "metadata": {}
+          }
+        ],
+        "episodic_memories": [
+          {
+            "user_id": "ana_paula",
+            "domain_id": "fiscal",
+            "user_input": "qual o ultimo status da analize de minha nfe 78910.",
+            "assistant_output": "Entendido, Ana. Para analisar a NF-e 78910, por favor, anexe o arquivo ou me forneça a chave de acesso.",
+            "timestamp": "2025-07-21T17:39:18.617812"
+          },
+          {
+            "user_id": "ana_paula",
+            "domain_id": "fiscal",
+            "user_input": "qual o ultimo status da analize de minha nfe 78910.",
+            "assistant_output": "Entendido, Ana. Para analisar a NF-e 78910, por favor, anexe o arquivo ou me forneça a chave de acesso.",
+            "timestamp": "2025-07-21T17:46:19.895946"
+          },
+          {
+            "user_id": "ana_paula",
+            "domain_id": "fiscal",
+            "user_input": "qual o ultimo status da analize de minha nfe 78910.",
+            "assistant_output": "Entendido, Ana. Para analisar a NF-e 78910, por favor, anexe o arquivo ou me forneça a chave de acesso.",
+            "timestamp": "2025-07-21T17:49:11.773322"
+          },
+          {
+            "user_id": "ana_paula",
+            "domain_id": "fiscal",
+            "user_input": "qual o ultimo status da analize de minha nfe 78910.",
+            "assistant_output": "Entendido, Ana. Para analisar a NF-e 78910, por favor, anexe o arquivo ou me forneça a chave de acesso.",
+            "timestamp": "2025-07-21T17:49:39.579766"
+          },
+          {
+            "user_id": "ana_paula",
+            "domain_id": "fiscal",
+            "user_input": "qual o ultimo status da analize de minha nfe 78910.",
+            "assistant_output": "Entendido, Ana. Para analisar a NF-e 78910, por favor, anexe o arquivo ou me forneça a chave de acesso.",
+            "timestamp": "2025-07-21T17:51:29.038002"
+          }
+        ],
+        "task_data": {
+          "numero": "78910",
+          "data_emissao": "2025-07-08T10:00:00-03:00",
+          "fornecedor_nome": "Tecno Peças Ltda",
+          "fornecedor_cnpj": "12.345.678/0001-99",
+          "valor_total": 4500.0,
+          "origem": "MG",
+          "destino": "SP",
+          "produtos": [
+            {
+              "sku": "ROL-AX-3000",
+              "nome": "Rolamento Axial 3000",
+              "ncm": "8482.10.10",
+              "quantidade": 100,
+              "valor_unitario": 45.0
+            }
+          ],
+          "impostos": {
+            "base_calculo_icms": 4500.0,
+            "valor_icms": 810.0,
+            "base_calculo_ipi": 4500.0,
+            "valor_ipi": 450.0,
+            "icms_st": {
+              "base_calculo": 4800.0,
+              "valor": 432.0
+            }
+          }
+        }
+      },
+      "product_catalog": {
+        "status": "active",
+        "session_summary": "",
+        "active_task": "Analisando a solicitação 'Ok, obrigado. Agora preciso cadastrar um novo prod...' para o domínio 'product_catalog'.",
+        "semantic_memories": [
+          {
+            "id": "mem-uuid-789",
+            "domain_id": "product_catalog",
+            "type": "business_rule",
+            "text_content": "O último código de notebook cadastrado foi 'NB-1098'. Novos códigos devem seguir a sequência.",
+            "embedding": [
+              -0.78,
+              0.02,
+              0.49
+            ],
+            "metadata": {
+              "category": "notebooks",
+              "prefix": "NB-"
+            }
+          }
+        ],
+        "episodic_memories": [
+          {
+            "user_id": "ana_paula",
+            "domain_id": "product_catalog",
+            "user_input": "Ok, obrigado. Agora preciso cadastrar um novo produto.",
+            "assistant_output": "Claro. Para iniciar o cadastro, por favor, me informe a descrição completa e a marca do novo produto.",
+            "timestamp": "2025-07-21T17:39:18.618357"
+          },
+          {
+            "user_id": "ana_paula",
+            "domain_id": "product_catalog",
+            "user_input": "Ok, obrigado. Agora preciso cadastrar um novo produto.",
+            "assistant_output": "Claro. Para iniciar o cadastro, por favor, me informe a descrição completa e a marca do novo produto.",
+            "timestamp": "2025-07-21T17:46:19.896513"
+          },
+          {
+            "user_id": "ana_paula",
+            "domain_id": "product_catalog",
+            "user_input": "Ok, obrigado. Agora preciso cadastrar um novo produto.",
+            "assistant_output": "Claro. Para iniciar o cadastro, por favor, me informe a descrição completa e a marca do novo produto.",
+            "timestamp": "2025-07-21T17:49:11.774249"
+          },
+          {
+            "user_id": "ana_paula",
+            "domain_id": "product_catalog",
+            "user_input": "Ok, obrigado. Agora preciso cadastrar um novo produto.",
+            "assistant_output": "Claro. Para iniciar o cadastro, por favor, me informe a descrição completa e a marca do novo produto.",
+            "timestamp": "2025-07-21T17:49:39.580378"
+          },
+          {
+            "user_id": "ana_paula",
+            "domain_id": "product_catalog",
+            "user_input": "Ok, obrigado. Agora preciso cadastrar um novo produto.",
+            "assistant_output": "Claro. Para iniciar o cadastro, por favor, me informe a descrição completa e a marca do novo produto.",
+            "timestamp": "2025-07-21T17:51:29.038661"
+          }
+        ],
+        "task_data": null
+      }
+    }
+  }
+}

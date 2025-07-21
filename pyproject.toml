@@ -11,12 +11,38 @@ authors = [
 description = "Uma biblioteca Python para implementar a arquitetura de Engenharia de Contexto Aumentada (ECA)."
 readme = "README.md"
 requires-python = ">=3.8"
+
+# Lista de dependências principais
+dependencies = []
+
 classifiers = [
-    "Programming Language :: Python :: 3",
+    # Indica que o projeto está em estágio inicial, não recomendado para produção crítica.
+    "Development Status :: 3 - Alpha",
+
+    # Define o público e o tópico para melhor busca no PyPI.
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+
+    # Mantém as informações de licença e compatibilidade.
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
 ]
 
 [project.urls]
 "Homepage" = "https://github.com/coagentis/eca-lib"
 "Bug Tracker" = "https://github.com/coagentis/eca-lib/issues"
+
+# Seção de dependências opcionais
+[project.optional-dependencies]
+# Um usuário que queira usar a busca vetorial pode instalar com: pip install eca-lib[vector]
+vector = [
+    "sentence-transformers>=2.2.0",
+    "torch>=2.0.0" 
+    # Adicione outras bibliotecas necessárias para a funcionalidade vetorial.
+]
