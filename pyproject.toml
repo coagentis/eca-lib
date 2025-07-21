@@ -46,3 +46,9 @@ vector = [
     "torch>=2.0.0" 
     # Adicione outras bibliotecas necessárias para a funcionalidade vetorial.
 ]
+
+[tool.setuptools.package-data]
+# "eca" é o nome do seu pacote de código-fonte.
+# A linha abaixo diz: "dentro do pacote eca, inclua qualquer arquivo
+# que esteja na pasta 'prompts'".
+"eca" = ["prompts/*.txt"]
