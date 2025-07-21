@@ -26,32 +26,40 @@ def run_simulation():
     
     # --- 1. Setup: Apontar para os arquivos de dados ---
     try:
+        # O base_dir é o diretório do script atual (.../eca-lib/examples)
         base_dir = os.path.dirname(__file__)
-        db_path = os.path.join(base_dir, 'examples/database')
-        knowledge_path = os.path.join(base_dir, 'examples/knowledge_base')
-        workspaces_path = os.path.join(base_dir, 'examples/workspaces')
-        prompts_path = os.path.join(base_dir, 'eca/prompts')
+        
+        # CORREÇÃO: O project_root é um nível acima do diretório 'examples'
+        project_root = os.path.abspath(os.path.join(base_dir, '..'))
+
+        # CORREÇÃO: Construir os caminhos a partir da raiz do projeto
+        db_path = os.path.join(project_root, 'examples/database')
+        knowledge_path = os.path.join(project_root, 'examples/knowledge_base')
+        workspaces_path = os.path.join(project_root, 'examples/workspaces')
+        prompts_path = os.path.join(project_root, 'eca/prompts')
 
         # Arquivos de dados
         personas_file = os.path.join(db_path, 'personas.json')
         semantic_memories_file = os.path.join(db_path, 'memories.json')
-        episodic_memories_file = os.path.join(db_path, 'interaction_log.json') # Novo arquivo de log
+        episodic_memories_file = os.path.join(db_path, 'interaction_log.json')
         
         # Arquivo de sessão
         sessions_file = os.path.join(workspaces_path, 'user_sessions.json')
-        # Arquivo de prompt mestre (usando a versão em português)
+        # Arquivo de prompt mestre
         meta_prompt_file = os.path.join(prompts_path, 'meta_prompt_template_pt_BR.txt')
 
-        # Garante que os diretórios e arquivos vazios existam para evitar erros na primeira execução
+        # Garante que os diretórios e arquivos vazios existam
         os.makedirs(workspaces_path, exist_ok=True)
-        for f in [sessions_file, episodic_memories_file]:
+        os.makedirs(db_path, exist_ok=True)
+        for f in [sessions_file, episodic_memories_file, personas_file, semantic_memories_file]:
             if not os.path.exists(f):
                 with open(f, 'w') as fp:
-                    fp.write('{}' if f.endswith('sessions.json') else '[]')
+                    if f.endswith('.json'):
+                        fp.write('{}' if 'sessions' in f else '[]')
 
-    except FileNotFoundError as e:
-        print(f"Erro de configuração: Não foi possível encontrar um arquivo necessário.")
-        print(f"Verifique se a estrutura de pastas está correta e o arquivo '{e.filename}' existe.")
+    except Exception as e:
+        print(f"Erro de configuração: {e}")
+        print(f"Verifique se a estrutura de pastas está correta.")
         return
 
     # --- 2. Instanciar os Provedores (Adapters) ---
