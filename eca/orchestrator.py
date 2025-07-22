@@ -1,8 +1,9 @@
-# -*- coding: utf-8 -*-
+# eca/orchestrator.py
 import json
 import os
 from datetime import datetime
 from typing import Any, Callable, Dict, Optional
+import importlib.resources  
 
 from .adapters.base import PersonaProvider, MemoryProvider, SessionProvider
 from .workspace import CognitiveWorkspaceManager
@@ -40,8 +41,9 @@ class ECAOrchestrator:
         persona_provider: PersonaProvider,
         memory_provider: MemoryProvider,
         session_provider: SessionProvider,
-        meta_prompt_template_path: str,
         knowledge_base_path: str,
+        prompt_language: str = "pt_br",
+        meta_prompt_path_override: Optional[str] = None,
         semantic_attention: Optional[AttentionMechanism] = None,
         episodic_attention: Optional[AttentionMechanism] = None,
         data_handlers: Optional[Dict[str, Callable[[Dict], Any]]] = None
@@ -49,25 +51,21 @@ class ECAOrchestrator:
         """Inicializa o Orquestrador com todas as suas dependências.
 
         Args:
-            persona_provider (PersonaProvider): Uma instância de um provedor
-                de persona.
-            memory_provider (MemoryProvider): Uma instância de um provedor de
-                memória.
-            session_provider (SessionProvider): Uma instância de um provedor
-                de sessão.
-            meta_prompt_template_path (str): O caminho para o arquivo de texto
-                que serve como template mestre do prompt.
-            knowledge_base_path (str): O caminho para o diretório que contém
-                arquivos de dados externos (base de conhecimento).
-            semantic_attention (Optional[AttentionMechanism], optional):
-                Mecanismo para rankear memórias semânticas. Se `None`, usa
-                `PassthroughAttention` (sem rankeamento). Padrão é `None`.
-            episodic_attention (Optional[AttentionMechanism], optional):
-                Mecanismo para rankear memórias episódicas. Se `None`, usa
-                `PassthroughAttention`. Padrão é `None`.
-            data_handlers (Optional[Dict[str, Callable[[Dict], Any]]], optional):
-                Um dicionário de funções para pré-processar dados externos
-                antes de injetá-los no prompt. Padrão é `None`.
+            persona_provider (PersonaProvider): Instância de um provedor de persona.
+            memory_provider (MemoryProvider): Instância de um provedor de memória.
+            session_provider (SessionProvider): Instância de um provedor de sessão.
+            knowledge_base_path (str): Caminho para o diretório da base de conhecimento.
+            prompt_language (str, optional): O idioma do template de prompt padrão
+                a ser carregado de dentro do pacote. Padrão é "pt_BR".
+            meta_prompt_path_override (Optional[str], optional): O caminho completo para
+                um arquivo de template customizado. Se fornecido, ele ignora o
+                `prompt_language`. Padrão é `None`.
+            semantic_attention (Optional[AttentionMechanism], optional): Mecanismo para
+                rankear memórias semânticas. Padrão é `PassthroughAttention`.
+            episodic_attention (Optional[AttentionMechanism], optional): Mecanismo para
+                rankear memórias episódicas. Padrão é `PassthroughAttention`.
+            data_handlers (Optional[Dict[str, Callable[[Dict], Any]]], optional): Funções
+                para pré-processar dados de tarefas. Padrão é `None`.
         """
         self.persona_provider = persona_provider
         self.memory_provider = memory_provider
@@ -77,9 +75,29 @@ class ECAOrchestrator:
         self.workspace_manager = CognitiveWorkspaceManager()
         self.knowledge_base_path = knowledge_base_path
         self.data_handlers = data_handlers if data_handlers else {}
-        with open(meta_prompt_template_path, 'r', encoding='utf-8') as f:
-            self.meta_prompt_template = f.read()
 
+        if meta_prompt_path_override:
+            # Se um caminho customizado for fornecido, use-o.
+            with open(meta_prompt_path_override, 'r', encoding='utf-8') as f:
+                self.meta_prompt_template = f.read()
+        else:
+            # Caso contrário, carregue o prompt padrão com base no idioma.
+            try:
+                filename = f"meta_prompt_template_{prompt_language}.txt"
+                # Usa importlib.resources para encontrar o arquivo DENTRO do pacote instalado
+                prompt_ref = importlib.resources.files('eca').joinpath('prompts', filename)
+                with prompt_ref.open('r', encoding='utf-8') as f:
+                    self.meta_prompt_template = f.read()
+            except FileNotFoundError:
+                raise ValueError(
+                    f"O template de prompt padrão para o idioma '{prompt_language}' não foi encontrado. "
+                    "Verifique se o arquivo 'meta_prompt_template_{prompt_language}.txt' existe na pasta 'eca/prompts'."
+                )
+        # ------------------------------------------
+
+    #
+    # O RESTANTE DA CLASSE (generate_context_object, etc.) CONTINUA IGUAL...
+    #
     def generate_context_object(self, user_id: str, user_input: str) -> CognitiveWorkspace:
         """Processa uma entrada e retorna o objeto `CognitiveWorkspace` completo.
 
