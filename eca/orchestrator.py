@@ -93,11 +93,7 @@ class ECAOrchestrator:
                     f"O template de prompt padrão para o idioma '{prompt_language}' não foi encontrado. "
                     "Verifique se o arquivo 'meta_prompt_template_{prompt_language}.txt' existe na pasta 'eca/prompts'."
                 )
-        # ------------------------------------------
 
-    #
-    # O RESTANTE DA CLASSE (generate_context_object, etc.) CONTINUA IGUAL...
-    #
     def generate_context_object(self, user_id: str, user_input: str) -> CognitiveWorkspace:
         """Processa uma entrada e retorna o objeto `CognitiveWorkspace` completo.
 
