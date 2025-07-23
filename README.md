@@ -55,52 +55,127 @@ pip install eca-lib
 
 ### 🚀 Quick Start
 
-Este exemplo mostra como instanciar o orquestrador e gerar um prompt dinâmico.
+Este exemplo mostra como instanciar o orquestrador e gerar um prompt dinâmico de forma 100% autocontida.
 
-1.  **Crie seus arquivos de dados** (veja a pasta `/examples` para os formatos):
-    * `personas.json`: Define as identidades da sua IA.
-    * `memories.json`: Sua base de conhecimento semântico.
-    * `sessions.json`: Onde o estado das conversas será salvo (pode começar vazio).
-    * `meta_prompt.txt`: O template mestre do seu prompt, contendo a variável `{{DYNAMIC_CONTEXT}}`.
+1.  **Crie seus arquivos de dados**
 
-2.  **Execute o código Python:**
+    Em uma nova pasta para o seu projeto, crie os seguintes arquivos com o conteúdo exato abaixo:
 
-```python
-# Importe as classes necessárias
-from eca import ECAOrchestrator
-from eca.adapters import JSONPersonaProvider, JSONMemoryProvider, JSONSessionProvider
+      * **`personas.json`** - (Define as personalidades da IA)
 
-# Apontar para os arquivos de dados da sua aplicação
-base_path = 'examples/database/'
-personas_file = base_path + 'personas.json'
-memories_file = base_path + 'memories.json'
-sessions_file = base_path + 'interaction_log.json' # Onde as conversas são salvas
-meta_prompt_file = 'eca/prompts/meta_prompt_template_pt_BR.txt'
+        ```json
+        [
+          {
+            "id": "fiscal",
+            "name": "ÁBACO",
+            "semantic_description": "Análise de documentos fiscais, notas fiscais, impostos como ICMS, IPI, conformidade tributária.",
+            "persona_config": {
+              "persona": "Você é ÁBACO, um assistente de IA especialista em análise fiscal. Você é objetivo, eficiente e baseado em dados.",
+              "objective": "Analisar documentos fiscais, garantir conformidade e identificar inconsistências.",
+              "golden_rules": [
+                "A precisão é mais importante que a velocidade.",
+                "Nunca presuma dados ambíguo; sempre sinalize para revisão humana."
+              ]
+            }
+          },
+          {
+            "id": "product_catalog",
+            "name": "CATÁLOGO",
+            "semantic_description": "Gerenciamento de catálogo, cadastro de novos produtos, SKUs, organização de itens.",
+            "persona_config": {
+              "persona": "Você é CATÁLOGO, um assistente de IA focado em manter a integridade do cadastro de produtos.",
+              "objective": "Garantir a organização e padronização do catálogo.",
+              "golden_rules": [
+                "Verifique se o produto já existe antes de cadastrar um novo."
+              ]
+            }
+          }
+        ]
+        ```
 
-# Instancie os provedores (Adapters)
-persona_provider = JSONPersonaProvider(file_path=personas_file)
-# Nota: O JSONMemoryProvider real usa semantic_path e episodic_path
-memory_provider = JSONMemoryProvider(semantic_path=memories_file, episodic_path=sessions_file)
-session_provider = JSONSessionProvider(file_path='examples/workspaces/user_sessions.json')
+      * **`memories.json`** - (A base de conhecimento inicial)
 
-# Injetar os provedores no Orquestrador
-orchestrator = ECAOrchestrator(
-    persona_provider=persona_provider,
-    memory_provider=memory_provider,
-    session_provider=session_provider,
-    meta_prompt_template_path=meta_prompt_file,
-    knowledge_base_path='examples/knowledge_base' # Para dados de tarefas
-)
+        ```json
+        [
+          {
+            "id": "mem-uuid-456",
+            "domain_id": "fiscal",
+            "type": "business_rule",
+            "text_content": "Toda validação de ICMS-ST deve cruzar a informação com o Protocolo ICMS vigente entre os estados da operação."
+          },
+          {
+            "id": "mem-uuid-789",
+            "domain_id": "product_catalog",
+            "type": "business_rule",
+            "text_content": "O último código de notebook cadastrado foi 'NB-1098'. Novos códigos devem seguir a sequência."
+          }
+        ]
+        ```
 
-# Processe a entrada do usuário
-user_id = "ana_paula"
-user_input = "Preciso cadastrar um novo produto no sistema."
+2.  **Crie e execute o código Python**
 
-# Gere o prompt final, pronto para o LLM
-final_prompt = orchestrator.generate_final_prompt(user_id, user_input)
+    Na mesma pasta, crie o arquivo **`main.py`** com o conteúdo abaixo e depois execute os comandos.
 
-print(final_prompt)
-```
+    ```python
+    # main.py
+
+    # Importa as classes da biblioteca que você instalou com 'pip install eca-lib'
+    from eca import (
+        ECAOrchestrator, 
+        # Os adaptadores JSON são ótimos para começar rapidamente
+        JSONPersonaProvider, 
+        JSONMemoryProvider, 
+        JSONSessionProvider
+    )
+
+    # --- 1. Configuração dos Provedores (Adapters) ---
+    # Apontamos para os arquivos que acabamos de criar.
+    persona_provider = JSONPersonaProvider(file_path='personas.json')
+    memory_provider = JSONMemoryProvider(
+        semantic_path='memories.json', 
+        episodic_path='interaction_log.json' # Este arquivo será criado automaticamente
+    )
+    session_provider = JSONSessionProvider(
+        file_path='user_sessions.json' # Este também será criado automaticamente
+    )
+
+    # --- 2. Instanciação do Orquestrador ---
+    # A biblioteca carrega o prompt padrão em português automaticamente.
+    orchestrator = ECAOrchestrator(
+        persona_provider=persona_provider,
+        memory_provider=memory_provider,
+        session_provider=session_provider,
+        knowledge_base_path='.' # Usaremos o diretório atual
+    )
+
+    print("✅ Orquestrador ECA pronto para uso!")
+
+    # --- 3. Simulação de uma Conversa ---
+    user_id = "ana_paula"
+    user_input = "Preciso cadastrar um novo notebook."
+
+    print(f"\n🗣️  INPUT DO USUÁRIO: '{user_input}'")
+
+    # Gera o prompt final, pronto para ser enviado a um LLM
+    final_prompt = orchestrator.generate_final_prompt(user_id, user_input)
+
+    print("\n✨ PROMPT DINÂMICO GERADO PELA ECA-LIB: ✨\n")
+    print(final_prompt)
+    ```
+
+    **Comandos para executar:**
+
+    ```bash
+    # Crie e ative um ambiente virtual
+    python -m venv venv
+    source venv/bin/activate
+
+    # Instale a biblioteca (a partir do PyPI, quando publicada)
+    pip install eca-lib
+
+    # Execute o script
+    python main.py
+    ```
 
 ### 📖 Documentação Completa
 
