@@ -4,7 +4,7 @@
 ![PyPI version](https://img.shields.io/pypi/v/eca-lib.svg)
 ![Status](https://img.shields.io/badge/status-em%20desenvolvimento-orange)
 
-**ECA-Lib** é um framework Python para construir agentes de IA com memória de longo prazo, identidade e capacidade de raciocínio dinâmico, superando a amnésia natural dos LLMs.
+**ECA-Lib** é a implementação da arquitetura ECA, um paradigma para projetar e construir aplicações de IA stateful (com estado) sobre Grandes Modelos de Linguagem. A biblioteca fornece um sistema estruturado para a engenharia de contexto, permitindo que LLMs operem com memória de longo prazo e capacidade de multitarefa.
 
 ---
 
