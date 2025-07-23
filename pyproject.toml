@@ -12,19 +12,15 @@ description = "Uma biblioteca Python para implementar a arquitetura de Engenhari
 readme = "README.md"
 requires-python = ">=3.8"
 
-# Lista de dependências principais
+# A lista de dependências principais continua vazia, pois a biblioteca
+# base não precisa de pacotes externos.
 dependencies = []
 
 classifiers = [
-    # Indica que o projeto está em estágio inicial, não recomendado para produção crítica.
     "Development Status :: 3 - Alpha",
-
-    # Define o público e o tópico para melhor busca no PyPI.
     "Intended Audience :: Developers",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
-
-    # Mantém as informações de licença e compatibilidade.
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
@@ -38,17 +34,28 @@ classifiers = [
 "Homepage" = "https://github.com/coagentis/eca-lib"
 "Bug Tracker" = "https://github.com/coagentis/eca-lib/issues"
 
-# Seção de dependências opcionais
+# --- Seção de Dependências Opcionais ATUALIZADA ---
 [project.optional-dependencies]
-# Um usuário que queira usar a busca vetorial pode instalar com: pip install eca-lib[vector]
-vector = [
-    "sentence-transformers>=2.2.0",
-    "torch>=2.0.0" 
-    # Adicione outras bibliotecas necessárias para a funcionalidade vetorial.
+# Para quem for usar o RedisSessionProvider
+redis = [
+    "redis>=5.0.0"
 ]
 
+# Para quem for usar os adaptadores de PostgreSQL
+# Inclui tudo: o driver, o suporte a vetores, o ORM e o modelo de embedding
+postgres = [
+    "psycopg2-binary>=2.9.0",
+    "pgvector>=0.2.0",
+    "SQLAlchemy>=2.0.0"
+]
+
+# Um extra de conveniência para instalar tudo de uma vez
+all = [
+    "eca-lib[redis]",
+    "eca-lib[postgres]"
+]
+
+
 [tool.setuptools.package-data]
-# "eca" é o nome do seu pacote de código-fonte.
-# A linha abaixo diz: "dentro do pacote eca, inclua qualquer arquivo
-# que esteja na pasta 'prompts'".
+# Garante que os arquivos de prompt sejam incluídos no pacote
 "eca" = ["prompts/*.txt"]
