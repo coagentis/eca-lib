@@ -8,20 +8,20 @@
 
 ---
 
-### 💥 O Problema: A Amnésia dos LLMs
+### 💥 O Problema: A Natureza Stateless dos LLMs e sua Amnésia
 
-Grandes Modelos de Linguagem (LLMs) são incrivelmente poderosos, mas são, por natureza, *stateless*. Eles não têm memória entre as interações, o que torna impossível construir assistentes que realmente aprendem com o passado e mantêm um contexto fluido em conversas complexas.
+Grandes Modelos de Linguagem (LLMs) são incrivelmente poderosos, mas operam com uma limitação fundamental: por natureza, eles são stateless (sem estado). Eles não possuem memória entre as interações, o que torna um desafio construir aplicações de IA stateful que evoluem, aprendem com o passado e gerenciam tarefas complexas de forma contínua.
 
 ### ✨ A Solução: Arquitetura ECA
 
-A **ECA (Engenharia de Contexto Aumentada)** é uma arquitetura que funciona como um "exoesqueleto" cognitivo para LLMs. Ela orquestra a identidade, a memória e o foco do agente, gerando um prompt rico e dinâmico em tempo real.
+A **ECA (Engenharia de Contexto Aumentada)** é uma arquitetura de orquestração que resolve esse problema. Funciona como um "exoesqueleto" cognitivo para LLMs, fornecendo um sistema estruturado para a engenharia de contexto, onde a identidade, a memória e o estado são tratados como componentes de primeira classe. Ela orquestra a identidade, a memória e o foco do agente, gerando um prompt rico e dinâmico em tempo real.
 
 Com a ECA, um agente de IA pode:
 
-* ✅ **Ter Múltiplas Personas:** Agir como um especialista fiscal em um momento e como um organizador de catálogos no outro.
-* 🧠 **Possuir Memória de Longo Prazo:** Usar o padrão RAG (Geração Aumentada por Recuperação) para consultar uma base de conhecimento e "lembrar" de fatos e interações passadas.
-* 🚀 **Raciocinar Dinamicamente:** Alternar entre diferentes tarefas sem perder o contexto, utilizando uma "Área de Trabalho Cognitiva" que gerencia múltiplos domínios de foco.
-* ⚙️ **Ser Orientado por Dados:** Definir personas, regras e memórias em arquivos de configuração, não em código rígido, permitindo flexibilidade máxima.
+* ✅ **Gerenciamento de Identidade:** Permite a definição de múltiplas personas (com identidades, objetivos e regras próprias) que são carregadas dinamicamente. Isso torna o comportamento da IA configurável e não codificado, podendo agir como um especialista fiscal em um momento e como um organizador de catálogos no outro.
+* 🧠 **Memória Híbrida e Persistente:** Implementa uma memória de longo prazo (semântica) via RAG (Geração Aumentada por Recuperação) e uma memória de curto prazo (episódica), permitindo que a aplicação consulte e "lembre" de fatos e interações passadas.
+* 🚀 **Raciocinar Dinamicamente:** Alternar entre diferentes tarefas sem perder o contexto, utilizando uma "Área de Trabalho Cognitiva" que gerencia múltiplos domínios de foco. Introduzindo um sistema de gerenciamento de estado que permite à aplicação pausar uma tarefa, focar em outra e retornar ao contexto original sem perda de informação, simulando uma capacidade de raciocínio dinâmico.
+* ⚙️ **Ser Orientado por Dados:** Definir personas, regras e memórias em arquivos de configuração, não em código rígido. Toda a lógica de comportamento (personas, regras, memórias) é tratada como dados, desacoplando a lógica da aplicação de suas fontes de conhecimento e permitindo máxima flexibilidade através de uma arquitetura de adaptadores.
 
 ### Diagrama da Arquitetura
 ```mermaid
