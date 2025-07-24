@@ -128,6 +128,19 @@ pip install eca-lib
 ```
 *(Nota: O pacote está em processo de publicação no PyPI)*
 
+### **Status Atual e Instalação (Versão Beta)**
+
+O projeto está em fase de testes públicos. Agradecemos seu interesse em nos ajudar a lapidar a versão final\!
+
+A biblioteca está atualmente disponível no **TestPyPI**, o repositório oficial para pacotes em teste. Para instalar, por favor, utilize o comando completo abaixo:
+
+```bash
+pip install --index-url https://test.pypi.org/simple/ --no-deps eca-lib
+```
+
+A publicação da versão estável no PyPI principal está planejada para breve.
+
+
 ### 🚀 Quick Start
 
 Este exemplo mostra como instanciar o orquestrador e gerar um prompt dinâmico de forma 100% autocontida.
