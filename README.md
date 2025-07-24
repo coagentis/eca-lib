@@ -103,8 +103,6 @@ Após orquestrar todos esses elementos – consultar suas memórias, usar sua ba
 | **Redis / Cache** | Ingredientes Pré-cortados (acesso rápido) |
 | **Resposta Final da IA** | O Prato Servido ao Cliente |
 
-\<br\>
-
 Assim, a `eca-lib` não é apenas o Chef, mas toda a cozinha de alta performance que o permite criar respostas complexas e contextuais de forma consistente e escalável.
 
 ### 📦 Instalação
