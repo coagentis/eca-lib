@@ -3,7 +3,7 @@ name: Publicar no PyPI
 on:
   push:
     tags:
-      - "v0.1.1"  
+      - "v*.*.*"  
 
 permissions:
   id-token: write  
