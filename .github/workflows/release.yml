@@ -7,10 +7,10 @@ on:
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   build-and-publish:
-    name: Build e Publicar
     runs-on: ubuntu-latest
 
     steps:
@@ -30,5 +30,4 @@ jobs:
       - name: Publicar no PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          password: ${{ secrets.PYPI_API_TOKEN }}
           skip-existing: true
