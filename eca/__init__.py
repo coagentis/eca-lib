@@ -1,7 +1,7 @@
 # eca/__init__.py
 """ECA-Lib: Um framework Python para Engenharia de Contexto Aumentada."""
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 
 # --- Componentes Principais (Sempre disponíveis) ---
 from .orchestrator import ECAOrchestrator
