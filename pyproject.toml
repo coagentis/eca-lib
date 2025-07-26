@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "eca-lib"
-version = "0.1.3"
+version = "0.1.4"
 authors = [
   { name="coagentis", email="contato@coagentis.com.br" },
 ]
@@ -54,7 +54,6 @@ all = [
     "eca-lib[redis]",
     "eca-lib[postgres]"
 ]
-
 
 [tool.setuptools.package-data]
 # Garante que os arquivos de prompt sejam incluídos no pacote
