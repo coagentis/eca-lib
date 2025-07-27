@@ -45,6 +45,6 @@ def get_schema_models(vector_dimension: int):
         type = Column(String(255))
         text_content = Column(Text, nullable=False)
         embedding = Column(Vector(vector_dimension))
-        metadata = Column(JSON)
+        attributes = Column(JSON)
 
     return Base, PersonaModel, EpisodicMemoryModel, SemanticMemoryModel
