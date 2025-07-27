@@ -1,4 +1,3 @@
-# eca/database/schema.py
 """
 Define o schema do banco de dados para os adaptadores PostgreSQL usando SQLAlchemy ORM.
 """
@@ -10,6 +9,9 @@ from pgvector.sqlalchemy import Vector
 # O Base é a classe fundamental da qual todos os modelos ORM herdarão.
 Base = declarative_base()
 
+# Cache para armazenar os modelos já criados por dimensão do vetor
+_model_cache = {}
+
 def get_schema_models(vector_dimension: int):
     """
     Gera e retorna as classes de modelo SQLAlchemy com uma dimensão de vetor customizada.
@@ -20,6 +22,9 @@ def get_schema_models(vector_dimension: int):
     Returns:
         tuple: Uma tupla contendo as classes (Base, PersonaModel, EpisodicMemoryModel, SemanticMemoryModel).
     """
+    # Se os modelos para esta dimensão já foram criados, retorna do cache
+    if vector_dimension in _model_cache:
+        return _model_cache[vector_dimension]
 
     class PersonaModel(Base):
         __tablename__ = 'personas'
@@ -47,4 +52,7 @@ def get_schema_models(vector_dimension: int):
         embedding = Column(Vector(vector_dimension))
         attributes = Column(JSON)
 
-    return Base, PersonaModel, EpisodicMemoryModel, SemanticMemoryModel
+    # Salva os modelos criados no cache
+    _model_cache[vector_dimension] = (Base, PersonaModel, EpisodicMemoryModel, SemanticMemoryModel)
+
+    return _model_cache[vector_dimension]
