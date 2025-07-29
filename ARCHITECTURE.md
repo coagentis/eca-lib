@@ -194,10 +194,10 @@ Um dos recursos mais avançados do `ECAOrchestrator` é sua capacidade de gerenc
 
 A saída de cada ferramenta executada é então injetada no prompt usando uma tag dinâmica e padronizada, como `[INPUT_DATA_NOME_DA_FERRAMENTA:...]`, tornando os dados externos cidadãos de primeira classe no contexto do LLM.
 
-**Diagrama 3: O Ciclo de Raciocínio do Orquestrador (Corrigido e Simplificado)**
+**Diagrama 3: O Ciclo de Raciocínio do Orquestrador**
 
 ```mermaid
-flowchart TD
+flowchart LR
     Start([Início: Nova Entrada do Usuário]) --> DetectDomain{Detectar Domínio};
     DetectDomain --> LoadWorkspace[Carregar/Criar Área de Trabalho Cognitiva];
     LoadWorkspace --> SwitchFocus[Mudar Foco para o Domínio Ativo];
