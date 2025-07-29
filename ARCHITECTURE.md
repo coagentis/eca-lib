@@ -1,26 +1,29 @@
 ### **ECA: Arquitetura de Engenharia de Contexto Aumentada**
 
-**Versão:** 1.0
-**Autores:** Roberto Timóteo Viera da Silva
+**Versão:** 1.0  
+**Autores:** Roberto Timóteo Viera da Silva  
 **Data:** 9 de Julho de 2025
 
-### **Índice Atualizado**
 
-  * **Abstract (Resumo)**
-  * **1. Introdução**
-  * **2. Conceitos Fundamentais da ECA**
-  * **3. A Arquitetura ECA em Detalhes**
-      * 3.1. A Camada Persistente
-      * 3.2. A Camada de Abstração (O Padrão Adapter)
-      * 3.3. A Camada de Orquestração
-          * 3.3.1. O Mecanismo de Atenção: Focando no Relevante
-          * 3.3.2. O Ecossistema de Ferramentas (Tools): Capacidades de Ação e Percepção
-      * 3.4. A Camada de Geração de Prompt
-  * **4. Implementação como uma Biblioteca Python (`eca-lib`)**
-      * 4.1. Exemplo de Uso (Quick Start)
-  * **5. Estudo de Caso: O Assistente de Backoffice Multi-Domínio**
-  * **6. Trabalhos Futuros e Direções**
-  * **7. Conclusão**
+-----
+
+### **Índice**
+
+  * [Abstract (Resumo)](#abstract-resumo)
+  * [1. Introdução](#1-introdução)
+  * [2. Conceitos Fundamentais da ECA](#2-conceitos-fundamentais-da-eca)
+  * [3. A Arquitetura ECA em Detalhes](#3-a-arquitetura-eca-em-detalhes)
+    * [3.1. A Camada Persistente](#31-a-camada-persistente)
+    * [3.2. A Camada de Abstração (O Padrão Adapter)](#32-a-camada-de-abstração-o-padrão-adapter)
+    * [3.3. A Camada de Orquestração](#33-a-camada-de-orquestração)
+      * [3.3.1. O Mecanismo de Atenção: Focando no Relevante](#331-o-mecanismo-de-atenção-focando-no-relevante)
+      * [3.3.2. O Ecossistema de Ferramentas (Tools): Capacidades de Ação e Percepção](#332-o-ecossistema-de-ferramentas-tools-capacidades-de-ação-e-percepção)
+    * [3.4. A Camada de Geração de Prompt](#34-a-camada-de-geraçã-de-prompt)
+  * [4. Implementação como uma Biblioteca Python (`eca-lib`)](#4-implementação-como-uma-biblioteca-python-eca-lib)
+    * [4.1. Exemplo de Uso (Quick Start)](#41-exemplo-de-uso-quick-start)
+  * [5. Estudo de Caso: O Assistente de Backoffice Multi-Domínio](#5-estudo-de-caso-o-assistente-de-backoffice-multi-domínio)
+  * [6. O Caminho Adiante (The Path Forward)](#6-o-caminho-adiante-the-path-forward)
+  * [7. Considerações Finais](#7-considerações-finais)
 
 -----
 
@@ -132,7 +135,7 @@ Esta é a lógica central contida na classe `ECAOrchestrator`. Para cada requisi
 
 -----
 
-##### **3.3.1. O Mecanismo de Atenção: Focando no Relevante**
+##### 3.3.1. O Mecanismo de Atenção: Focando no Relevante
 
 A etapa 4 do ciclo do orquestrador (**buscar memórias relevantes**) é o coração do sistema de RAG e é crucial para a qualidade do contexto gerado. Na `eca-lib`, essa função é encapsulada pelo **Mecanismo de Atenção**. Ele é responsável por ranquear um conjunto de memórias candidatas e selecionar as mais pertinentes à entrada do usuário.
 
@@ -172,7 +175,7 @@ Esta abordagem dupla permite que o desenvolvedor da aplicação ECA escolha o me
 
 -----
 
-##### **3.3.2. O Ecossistema de Ferramentas (Tools): Capacidades de Ação e Percepção**
+##### 3.3.2. O Ecossistema de Ferramentas (Tools): Capacidades de Ação e Percepção
 
 Enquanto o Mecanismo de Atenção capacita o agente a *recordar* informações passadas, o **Ecossistema de Ferramentas** o capacita a **perceber e agir** no mundo exterior em tempo real. Esta é a capacidade que eleva um agente de um "erudito com boa memória" para um "agente de trabalho" capaz de executar tarefas que exigem dados ao vivo ou interações com outros sistemas.
 
@@ -194,7 +197,7 @@ A saída de cada ferramenta executada é então injetada no prompt usando uma ta
 **Diagrama 3: O Ciclo de Raciocínio do Orquestrador (Corrigido e Simplificado)**
 
 ```mermaid
-flowchart LR
+flowchart TD
     Start([Início: Nova Entrada do Usuário]) --> DetectDomain{Detectar Domínio};
     DetectDomain --> LoadWorkspace[Carregar/Criar Área de Trabalho Cognitiva];
     LoadWorkspace --> SwitchFocus[Mudar Foco para o Domínio Ativo];
@@ -222,7 +225,7 @@ O resultado do ciclo do orquestrador é um prompt de texto conciso e estruturado
 [SESSÃO_ATUAL: Verificação de notas fiscais de entrada do dia 28/07/2025 iniciada.]
 [TAREFA_ATIVA: Verificação da Nota Fiscal de Entrada nº 78910 do fornecedor 'Tecno Peças Ltda'.]
 [INPUT_DATA_NF_VALIDATOR_TOOL:{"numero_nf":"78910","fornecedor":"Tecno Peças Ltda","produto":"Rolamento Axial 3000","ncm_informado":"8482.10.10","icms_st_informado":432.00,"status_validação":"Pendente"}]
-[ENTRADA_USUÁRIO: "Ábaco, por favor, analise a NF-e 78910. Verifique o destaque do ICMS-ST e confira se o NCM do produto 'Rolamento Axial 3000' está correto de acordo com nossas regras de negócio."]
+[ENTRADA_USUÁrio: "Ábaco, por favor, analise a NF-e 78910. Verifique o destaque do ICMS-ST e confira se o NCM do produto 'Rolamento Axial 3000' está correto de acordo com nossas regras de negócio."]
 [FIM_CONTEXTO]
 ```
 
@@ -239,7 +242,7 @@ O princípio chave é a **separação de responsabilidades**:
 
 Essa separação permite que os desenvolvedores aproveitem a poderosa lógica de orquestração da ECA, mantendo total controle sobre seus dados e infraestrutura.
 
-### **4.1. Exemplo de Uso (Quick Start)**
+#### 4.1. Exemplo de Uso (Quick Start)
 
 Abaixo, um exemplo prático e completo que simula uma conversa real, demonstrando a detecção de domínio, o uso de memória de longo prazo (RAG), a execução de ferramentas para buscar dados em tempo real e a capacidade de retornar a um contexto pausado.
 
@@ -400,7 +403,7 @@ print(f"  - Memória Relevante: {'pico de vendas inesperado' in prompt_3} (A Ár
 print("----------------------------------------------------\n")
 ```
 
-### **5\. Estudo de Caso: O Assistente de Backoffice Multi-Domínio**
+### 5\. Estudo de Caso: O Assistente de Backoffice Multi-Domínio
 
 Para validar a arquitetura e demonstrar seu poder na prática, simulamos uma conversa com uma assistente de IA multi-talentosa, utilizada por uma usuária chamada Ana. O cenário reflete exatamente o código apresentado na seção *Quick Start*.
 
@@ -409,28 +412,31 @@ A assistente possui duas personas distintas pré-configuradas: **"VENDAX"**, uma
 A conversa se desenrola em três turnos, destacando a capacidade da ECA de gerenciar o contexto de forma fluida:
 
 1.  **Interação 1 (Domínio: `sales_agent`):** Ana inicia a conversa focada em vendas: *"VendaX, pode me passar o relatório de vendas de hoje?"*. O Orquestrador ECA:
-    * **Detecta** a intenção "vendas" e ativa a persona **VENDAX**.
-    * **Executa** a `SalesTool`, que busca os KPIs de vendas do dia em tempo real.
-    * **Monta** um prompt que instrui o LLM a agir como VENDAX e a usar os dados da ferramenta para formular a resposta. O estado da tarefa "relatório de vendas" é salvo na Área de Trabalho Cognitiva.
+
+      * **Detecta** a intenção "vendas" e ativa a persona **VENDAX**.
+      * **Executa** a `SalesTool`, que busca os KPIs de vendas do dia em tempo real.
+      * **Monta** um prompt que instrui o LLM a agir como VENDAX e a usar os dados da ferramenta para formular a resposta. O estado da tarefa "relatório de vendas" é salvo na Área de Trabalho Cognitiva.
 
 2.  **Interação 2 (Troca de Contexto para `hr_assistant`):** Ana muda abruptamente de assunto: *"Obrigada. Agora, por favor, verifique o saldo de férias do Carlos Magno."*. O Orquestrador ECA:
-    * **Detecta** a nova intenção "férias" e muda o foco para o domínio **RH**.
-    * **Pausa** o estado do domínio `sales_agent`, preservando todo o seu contexto.
-    * **Ativa** a persona **RH-BOT**, carregando suas regras de confidencialidade e tom empático.
-    * **Busca** na memória de longo prazo (RAG) e encontra uma política relevante sobre o agendamento de férias.
-    * **Executa** a `HRTool` para consultar o banco de dados de funcionários.
-    * **Gera** um prompt completo para o RH-BOT, contendo a política da empresa e os dados do funcionário.
+
+      * **Detecta** a nova intenção "férias" e muda o foco para o domínio **RH**.
+      * **Pausa** o estado do domínio `sales_agent`, preservando todo o seu contexto.
+      * **Ativa** a persona **RH-BOT**, carregando suas regras de confidencialidade e tom empático.
+      * **Busca** na memória de longo prazo (RAG) e encontra uma política relevante sobre o agendamento de férias.
+      * **Executa** a `HRTool` para consultar o banco de dados de funcionários.
+      * **Gera** um prompt completo para o RH-BOT, contendo a política da empresa e os dados do funcionário.
 
 3.  **Interação 3 (Retorno ao Contexto de Vendas):** Ana finaliza a consulta de RH e retorna ao seu pensamento original: *"Perfeito. Voltando ao relatório, aquele produto em destaque, o 'Rolamento 4000', tem algum histórico relevante?"*. O Orquestrador ECA:
-    * **Detecta** a intenção de retorno com a frase "Voltando ao relatório...".
-    * **Restaura** o foco para o domínio `sales_agent`. O estado da tarefa "relatório de vendas", que estava pausado, volta a ficar ativo.
-    * **Reativa** a persona **VENDAX**.
-    * **Busca** na memória de longo prazo usando o novo contexto ("Rolamento 4000") e encontra um *insight* estratégico sobre um pico de vendas passado para aquele produto.
-    * **Gera** um novo prompt para VENDAX, permitindo que o LLM continue a conversa original com memória total, como se nunca tivesse sido interrompido.
+
+      * **Detecta** a intenção de retorno com a frase "Voltando ao relatório...".
+      * **Restaura** o foco para o domínio `sales_agent`. O estado da tarefa "relatório de vendas", que estava pausado, volta a ficar ativo.
+      * **Reativa** a persona **VENDAX**.
+      * **Busca** na memória de longo prazo usando o novo contexto ("Rolamento 4000") e encontra um *insight* estratégico sobre um pico de vendas passado para aquele produto.
+      * **Gera** um novo prompt para VENDAX, permitindo que o LLM continue a conversa original com memória total, como se nunca tivesse sido interrompido.
 
 Este estudo de caso demonstra a capacidade central da ECA: gerenciar conversas complexas e com múltiplos tópicos de forma transparente para o usuário. A **Área de Trabalho Cognitiva** funciona como a memória de trabalho de um ser humano, permitindo que o agente de IA pause tarefas, mude de foco e retorne a elas com seu contexto perfeitamente preservado, resultando em interações drasticamente mais naturais e eficientes.
 
-### 6\. O Caminho Adiante (The Path Forward)
+### 6\. Trabalhos Futuros e Direções
 
 A arquitetura ECA fornece uma base sólida para exploração futura:
 
@@ -439,6 +445,6 @@ A arquitetura ECA fornece uma base sólida para exploração futura:
   * **Gerenciamento de Memória:** Implementação de mecanismos sofisticados de "esquecimento" para podar informações irrelevantes ou desatualizadas.
   * **Comunicação Inter-Domínios:** Permitir que agentes "conversem" entre si dentro da área de trabalho para resolver problemas inter-funcionais.
 
-### 7\. Considerações Finais
+### 7\. Conclusão
 
 A Engenharia de Contexto Aumentada (ECA) oferece um paradigma estruturado e escalável para construir a próxima geração de agentes de IA. Ao formalizar o gerenciamento de identidade, memória e estado através de uma camada de orquestração desacoplada, do inovador conceito de "Área de Trabalho Cognitiva", e da capacidade de interagir com o mundo exterior através de um ecossistema de ferramentas extensível, a ECA transforma LLMs de ferramentas reativas em parceiros de trabalho proativos, com estado (*stateful*) e contextualmente conscientes. Acreditamos que esta abordagem é um passo fundamental para a realização de interações de IA mais capazes e inteligentes.
