@@ -56,12 +56,12 @@ graph TD
         C{Base de Conhecimento / Ferramentas}
         D[🧠 LLM]
 
-        A -- 1. Entrada de Texto/Anexos --> B
-        B -- 2. Busca Contexto e Executa Ferramentas --> C
-        C -- 3. Retorna Dados e Resultados --> B
-        B -- 4. Monta Prompt Otimizado --> D
-        D -- 5. Gera Resposta --> B
-        B -- 6. Entrega Resposta --> A
+        A -- 1 Entrada de Texto/Anexos --> B
+        B -- 2 Busca Contexto e Executa Ferramentas --> C
+        C -- 3 Retorna Dados e Resultados --> B
+        B -- 4 Monta Prompt Otimizado --> D
+        D -- 5 Gera Resposta --> B
+        B -- 6 Entrega Resposta --> A
     end
 
     style C fill:#DB7093,stroke:#333,stroke-width:2px
