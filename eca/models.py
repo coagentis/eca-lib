@@ -21,10 +21,22 @@ class PersonaConfig:
             respostas da IA dentro desta persona.
         golden_rules (List[str]): Uma lista de regras invioláveis que a IA
             nunca deve quebrar, garantindo segurança e conformidade.
+        tone_of_voice (List[str]): Lista de adjetivos ou diretrizes que definem
+            o tom da comunicação da persona. Ex: ["Formal", "Didático"].
+        output_format (Optional[str]): Instrução explícita sobre o formato
+            da saída, útil para integrações. Ex: "json", "markdown".
+        forbidden_topics (List[str]): Lista de tópicos que a persona deve
+            evitar discutir. Ex: ["Opiniões pessoais", "Conselhos de investimento"].
+        verbosity (str): Controla o quão detalhada a resposta deve ser.
+            Valores sugeridos: "concise", "normal", "detailed".
     """
     persona: str
     objective: str
     golden_rules: List[str] = field(default_factory=list)
+    tone_of_voice: List[str] = field(default_factory=list)
+    output_format: Optional[str] = None
+    forbidden_topics: List[str] = field(default_factory=list)
+    verbosity: str = "normal"
 
 
 @dataclass
@@ -50,6 +62,12 @@ class Persona:
     name: str
     semantic_description: str
     config: PersonaConfig
+
+    # BÔNUS: Adicionado __post_init__ para robustez na desserialização.
+    def __post_init__(self):
+        """Garante que 'config' seja sempre um objeto PersonaConfig."""
+        if isinstance(self.config, dict):
+            self.config = PersonaConfig(**self.config)
 
 
 @dataclass
